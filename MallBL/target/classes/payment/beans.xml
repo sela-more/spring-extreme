@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+<context:component-scan base-package="store"></context:component-scan>
+<bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor" />
+<bean id="camera" name="Canon" class="items.Gadget">
+	<property name="name" value="AS30" />
+</bean>
+<bean id="Smartphone" name="Nokia" class="items.Gadget">
+	<property name="name" value="Lumia" />
+</bean>
+<bean id="Facilities" class="store.Facilities" >
+<constructor-arg>
+			<bean class="store.Restroom">
+			</bean>
+		</constructor-arg>
+</bean>
+<bean id="Shelf" class="items.Shelf">
+<lookup-method name="createGoodies" bean="Goodies"/>
+</bean>
+<bean id="emp" 
+class="payment.Employee" abstract="true">
+	<constructor-arg type="String" name="name" value="moshe"/>
+	<constructor-arg ref="Store"/>
+	<constructor-arg type="int" name="sallary" value="4000"/>
+</bean>
+
+<bean id="SalesMan" parent="emp" class="payment.SalesMan">
+	<constructor-arg type="int" name="bonus" value="20"/>
+</bean>
+
+<context:annotation-config />
+</beans> 
